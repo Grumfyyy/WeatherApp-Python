@@ -14,7 +14,10 @@ import json
 #datetime documentation - https://www.w3schools.com/python/python_datetime.asp
 import datetime
 
-def get_weather_data(latitude, longitude):
+#delete file - https://www.w3schools.com/python/python_file_remove.asp
+import os
+
+def get_weather_data(latitude, longitude, city_name):
     # https://open-meteo.com/en/docs
     url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m&hourly=temperature_2m&forecast_days=1"
     result = requests.get(url)
@@ -22,16 +25,29 @@ def get_weather_data(latitude, longitude):
     # Serializing json
     json_object = json.dumps(result.json(), indent=4)
     
-    # Writing to sample.json
-    with open("sample.json", "w") as outfile:
+    #writing to json data to a json file
+    with open("output.json", "w") as outfile:
         outfile.write(json_object)
 
-    f = open('sample.json',)
+    #read and load the json file, that was just created
+    f = open('output.json',)
     json_result = json.load(f)
 
+    #close and delete the file
     f.close()
+    os.remove('output.json')
 
-    print(json_result['hourly']['temperature_2m'])
+    #print(json_result['hourly']['temperature_2m'])
+
+    #get the current time, but i only need the current hour of the current day since i have a list of 24 values, because we have 24 hours
+    current_time = datetime.datetime.now()
+    current_hour = current_time.strftime('%H')
+
+    temperature_list = json_result['hourly']['temperature_2m']
+    current_temperature = temperature_list[int(current_hour)] # get the current temperature from the list of 24 values with the help of the current hour as an index
+
+    #print out the current temperature to the prompt
+    print(f'current temperature in {city_name} = {current_temperature} \u00b0C ')
     
 
 def get_coordinates(city_name):
@@ -39,7 +55,7 @@ def get_coordinates(city_name):
 
     location = geolocator.geocode(city_name)
 
-    get_weather_data(location.latitude, location.longitude)
+    get_weather_data(location.latitude, location.longitude, city_name)
     #print(f"The latitude of {city_name} is: ", location.latitude)
     #print(f"The longitude of {city_name} is: ", location.longitude)
 
