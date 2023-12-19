@@ -60,7 +60,8 @@ class WeatherApp():
         temperature_text = ''
         time_index = 0
         for temp in temperature_list[0:12]:
-            temperature_text += f'{time_index} = {temp} \u00b0C \n'
+            hour = datetime.time(time_index).strftime('%H:00')
+            temperature_text += f'|{hour} = {temp} \u00b0C\n'
             time_index += 1
 
         self.first_12_hours_text.set(temperature_text)
@@ -68,17 +69,19 @@ class WeatherApp():
         temperature_text = ''
         time_index = 12
         for temp in temperature_list[12:24]:
-            temperature_text += f'{time_index} = {temp} \u00b0C \n'
+            hour = datetime.time(time_index).strftime('%H:00')
+            temperature_text += f'|{hour} = {temp} \u00b0C|\n'
             time_index += 1
 
         self.second_12_hours_text.set(temperature_text)
         
     def get_coordinates(self, city_name):
-        geolocator = Nominatim(user_agent="WeatherApp")
+        if city_name != None:
+            geolocator = Nominatim(user_agent="WeatherApp")
 
-        location = geolocator.geocode(city_name)
+            location = geolocator.geocode(city_name)
 
-        self.get_weather_data(location.latitude, location.longitude, city_name)
+            self.get_weather_data(location.latitude, location.longitude, city_name)
         #print(f"The latitude of {city_name} is: ", location.latitude)
         #print(f"The longitude of {city_name} is: ", location.longitude)
 
@@ -88,7 +91,7 @@ class WeatherApp():
     def main(self):
         root = Tk()
         root.title("Weather Application by Josef Swadi Johansson")
-        root.geometry('400x400')
+        root.geometry('300x275')
 
         ttk.Label(root, text="City : ").place(x=5, y=5)
 
@@ -100,16 +103,16 @@ class WeatherApp():
 
         self.temperatureText = StringVar()
 
-        temperature_label = ttk.Label(root, textvariable=self.temperatureText)
-        temperature_label.place(x=5, y=30)
+        temperature_label = ttk.Label(root, textvariable=self.temperatureText, font="Verdana 8")
+        temperature_label.place(x=5, y=35)
 
         self.first_12_hours_text = StringVar()
-        first_12_hours_label = ttk.Label(root, textvariable=self.first_12_hours_text)
+        first_12_hours_label = ttk.Label(root, textvariable=self.first_12_hours_text, font="Verdana 10 underline")
         first_12_hours_label.place(x=5, y=60)
 
         self.second_12_hours_text = StringVar()
-        second_12_hours_label = ttk.Label(root, textvariable=self.second_12_hours_text)
-        second_12_hours_label.place(x=100, y=60)
+        second_12_hours_label = ttk.Label(root, textvariable=self.second_12_hours_text, font="Verdana 10 underline")
+        second_12_hours_label.place(x=120, y=60)
 
         root.mainloop()
 
