@@ -3,8 +3,16 @@
 from tkinter import *
 from tkinter import ttk
 
+#Geopy example - https://www.tutorialspoint.com/how-to-get-the-longitude-and-latitude-of-a-city-using-python
+from geopy.geocoders import Nominatim
+
 def get_coordinates(city_name):
-    print(city_name)
+    geolocator = Nominatim(user_agent="WeatherApp")
+
+    location = geolocator.geocode(city_name)
+
+    print(f"The latitude of {city_name} is: ", location.latitude)
+    print(f"The longitude of {city_name} is: ", location.longitude)
 
 def main():
     root = Tk()
