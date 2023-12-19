@@ -42,7 +42,7 @@ class WeatherApp():
         f.close()
         os.remove('output.json')
 
-        #print(json_result['hourly']['temperature_2m'])
+        print(json_result['hourly']['temperature_2m'])
 
         #get the current time, but i only need the current hour of the current day since i have a list of 24 values, because we have 24 hours
         current_time = datetime.datetime.now()
@@ -56,6 +56,22 @@ class WeatherApp():
 
         self.temperature = str(current_temperature)
         self.temperatureText.set(f"Current temperature in {city_name} is : {current_temperature} \u00b0C")
+
+        temperature_text = ''
+        time_index = 0
+        for temp in temperature_list[0:12]:
+            temperature_text += f'{time_index} = {temp} \u00b0C \n'
+            time_index += 1
+
+        self.first_12_hours_text.set(temperature_text)
+
+        temperature_text = ''
+        time_index = 12
+        for temp in temperature_list[12:24]:
+            temperature_text += f'{time_index} = {temp} \u00b0C \n'
+            time_index += 1
+
+        self.second_12_hours_text.set(temperature_text)
         
     def get_coordinates(self, city_name):
         geolocator = Nominatim(user_agent="WeatherApp")
@@ -86,6 +102,14 @@ class WeatherApp():
 
         temperature_label = ttk.Label(root, textvariable=self.temperatureText)
         temperature_label.place(x=5, y=30)
+
+        self.first_12_hours_text = StringVar()
+        first_12_hours_label = ttk.Label(root, textvariable=self.first_12_hours_text)
+        first_12_hours_label.place(x=5, y=60)
+
+        self.second_12_hours_text = StringVar()
+        second_12_hours_label = ttk.Label(root, textvariable=self.second_12_hours_text)
+        second_12_hours_label.place(x=100, y=60)
 
         root.mainloop()
 
