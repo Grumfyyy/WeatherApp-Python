@@ -27,5 +27,5 @@ Då displayas : "Nuvarande temperatur är : 16.46 °C"<br><br>
 - https://python-course.eu/tkinter/entry-widgets-in-tkinter.php - Entry field Tkinter
 
 # Hur startar man applikationen
-När väl applikationens filer ligger på datorn, så går man in på mappen, så ska det det finnas en fil som heter `weather-app.py` där, höger-klickar någonstans i mappen, och sedan och klickar på `Git Bash Here`<br>
+När väl applikationens filer ligger på datorn, så går man in på mappen, så ska det det finnas en fil som heter `weather-app.py` där, höger-klicka någonstans i mappen, och sedan och klickar på `Git Bash Here`<br>
 När Git Bash fönstret har öppnats så skriver man `python weather-app.py`, så ska applikationen öppnas.
