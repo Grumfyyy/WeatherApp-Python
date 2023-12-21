@@ -5,7 +5,7 @@
 #
 Gjort av : Josef Swadi Johansson - swadijosef@gmail.com
 # Beskrivning :
-Är en väder-app gjort i python, dock viktigt och tänka på är att temperaturen uppvisar en prognos på 24h
+Är en väder-app gjort i python, dock viktigt och tänka på är att temperaturen tas från en prognos på 24h
 
 Exempel :  
 Prognos för 24h : [2.61, 1.33, 10.13, 14.59, 1.21, 15.94, 10.95, 9.46, 14.57, 10.86, 0.75, 12.82, 16.46, 13.85, 11.57, 0.90, 0.89, 2.4, 1.22, 4.45, 10.90, 18.54, 16.85, 11.18] <br><br>
